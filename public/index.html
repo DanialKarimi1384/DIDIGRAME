@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>پیام‌رسان</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- صفحه ورود / ثبت‌نام -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">پ</div>
+      <h1 id="auth-title">ورود به حساب</h1>
+      <p class="auth-sub" id="auth-sub">برای شروع گفتگو وارد شوید</p>
+
+      <form id="auth-form">
+        <input type="text" id="auth-username" placeholder="نام کاربری" autocomplete="username" required />
+        <input type="password" id="auth-password" placeholder="رمز عبور" autocomplete="current-password" required />
+        <div id="auth-error" class="auth-error"></div>
+        <button type="submit" id="auth-submit">ورود</button>
+      </form>
+
+      <p class="auth-switch">
+        <span id="auth-switch-text">حساب ندارید؟</span>
+        <a href="#" id="auth-switch-link">ثبت‌نام کنید</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- برنامه اصلی -->
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="me">
+          <div class="avatar" id="me-avatar"></div>
+          <span id="me-username"></span>
+        </div>
+        <div class="header-actions">
+          <button id="theme-toggle" class="icon-btn" title="تغییر تم">🌙</button>
+          <button id="new-group-btn" class="icon-btn" title="گروه جدید">＋</button>
+          <button id="logout-btn" class="icon-btn" title="خروج">⎋</button>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="جستجوی کاربر یا چت..." />
+      </div>
+
+      <div id="search-results" class="search-results hidden"></div>
+
+      <div id="chat-list" class="chat-list"></div>
+    </aside>
+
+    <main class="chat-panel">
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">💬</div>
+        <p>یک چت را انتخاب کنید یا کاربر جدیدی را جستجو کنید</p>
+      </div>
+
+      <div id="chat-view" class="chat-view hidden">
+        <div class="chat-header">
+          <div class="chat-header-avatar" id="chat-avatar"></div>
+          <div class="chat-header-name" id="chat-name"></div>
+        </div>
+        <div id="messages" class="messages"></div>
+        <form id="message-form" class="message-form">
+          <input type="text" id="message-input" placeholder="پیام..." autocomplete="off" />
+          <button type="submit" class="send-btn">ارسال</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- مودال ساخت گروه -->
+  <div id="group-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>ساخت گروه جدید</h2>
+      <input type="text" id="group-name" placeholder="نام گروه" />
+      <input type="text" id="group-members" placeholder="نام کاربری اعضا با کاما جدا کنید (مثلا: ali, sara)" />
+      <div class="modal-actions">
+        <button id="group-cancel" class="btn-secondary">انصراف</button>
+        <button id="group-create" class="btn-primary">ساخت گروه</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

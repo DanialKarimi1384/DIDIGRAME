@@ -1,0 +1,16 @@
+{
+  "name": "persian-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 execute messenger-db --local --file=./schema.sql",
+    "db:migrate:remote": "wrangler d1 execute messenger-db --remote --file=./schema.sql",
+    "db:migrate-v2:local": "wrangler d1 execute messenger-db --local --file=./migrate-v2.sql",
+    "db:migrate-v2:remote": "wrangler d1 execute messenger-db --remote --file=./migrate-v2.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.123.0"
+  }
+}

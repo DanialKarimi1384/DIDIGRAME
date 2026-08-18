@@ -1,0 +1,23 @@
+name = "persian-messenger"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+# دیتابیس D1 برای ذخیره کاربران، چت‌ها و پیام‌ها
+[[d1_databases]]
+binding = "DB"
+database_name = "messenger-db"
+database_id = "0829c93f-2306-407d-8918-933e4125366d"
+
+# Durable Object برای هندل کردن اتصالات WebSocket هر چت به‌صورت آنی
+[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatRoom"]
+
+# سرو کردن فایل‌های فرانت‌اند (HTML/CSS/JS) به‌صورت static
+[assets]
+directory = "./public"
+binding = "ASSETS"

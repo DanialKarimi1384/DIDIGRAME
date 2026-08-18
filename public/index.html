@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>پیام‌رسان</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- صفحه ورود / ثبت‌نام -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">پ</div>
+      <h1 id="auth-title">ورود به حساب</h1>
+      <p class="auth-sub" id="auth-sub">برای شروع گفتگو وارد شوید</p>
+
+      <form id="auth-form">
+        <input type="text" id="auth-username" placeholder="نام کاربری (آیدی یونیک شما)" autocomplete="username" required />
+        <input type="password" id="auth-password" placeholder="رمز عبور" autocomplete="current-password" required />
+        <div id="auth-error" class="auth-error"></div>
+        <button type="submit" id="auth-submit">ورود</button>
+      </form>
+
+      <p class="auth-switch">
+        <span id="auth-switch-text">حساب ندارید؟</span>
+        <a href="#" id="auth-switch-link">ثبت‌نام کنید</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- برنامه اصلی -->
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="me" id="me-trigger">
+          <div class="avatar" id="me-avatar"></div>
+          <span id="me-username"></span>
+        </div>
+        <div class="header-actions">
+          <button id="theme-toggle" class="icon-btn" title="تغییر تم">🌙</button>
+          <button id="new-menu-btn" class="icon-btn" title="جدید">＋</button>
+          <button id="logout-btn" class="icon-btn logout-icon" title="خروج">⎋</button>
+        </div>
+      </div>
+
+      <!-- منوی جدید (گروه/کانال) -->
+      <div id="new-menu" class="dropdown hidden">
+        <button id="new-group-btn">👥 ساخت گروه</button>
+        <button id="new-channel-btn">📢 ساخت کانال</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="chats-tab">چت‌ها</button>
+        <button class="tab-btn" data-tab="contacts-tab">مخاطبین</button>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="جستجوی کاربر یا @آیدی..." />
+      </div>
+
+      <div id="search-results" class="search-results hidden"></div>
+
+      <div id="chats-tab" class="tab-panel">
+        <div id="saved-item-slot"></div>
+        <div id="chat-list" class="chat-list"></div>
+      </div>
+
+      <div id="contacts-tab" class="tab-panel hidden">
+        <div class="contacts-add">
+          <input type="text" id="add-contact-input" placeholder="آیدی کاربر برای افزودن..." />
+          <button id="add-contact-btn">افزودن</button>
+        </div>
+        <div id="contacts-list" class="chat-list"></div>
+      </div>
+    </aside>
+
+    <main class="chat-panel">
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">💬</div>
+        <p>یک چت را انتخاب کنید یا کاربر جدیدی را جستجو کنید</p>
+      </div>
+
+      <div id="chat-view" class="chat-view hidden">
+        <div class="chat-header" id="chat-header">
+          <div class="chat-header-avatar" id="chat-avatar"></div>
+          <div class="chat-header-name" id="chat-name"></div>
+        </div>
+        <div id="messages" class="messages"></div>
+        <form id="message-form" class="message-form">
+          <input type="text" id="message-input" placeholder="پیام..." autocomplete="off" />
+          <button type="submit" class="send-btn">ارسال</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- صفحه پروفایل (کاربر / گروه / کانال) -->
+  <div id="profile-screen" class="profile-screen hidden">
+    <div class="profile-topbar">
+      <button id="profile-back" class="icon-btn">→</button>
+      <span>پروفایل</span>
+    </div>
+    <div class="profile-body">
+      <div class="profile-avatar" id="profile-avatar"></div>
+      <h2 id="profile-name"></h2>
+      <p id="profile-handle" class="profile-handle"></p>
+      <p id="profile-meta" class="profile-meta"></p>
+      <p id="profile-desc" class="profile-desc"></p>
+
+      <button id="profile-go-chat" class="btn-primary profile-action hidden">💬 رفتن به گفتگو</button>
+      <button id="profile-add-contact" class="btn-primary profile-action hidden">➕ افزودن به مخاطبین</button>
+      <button id="profile-add-members" class="btn-primary profile-action hidden">➕ افزودن عضو</button>
+
+      <!-- تنظیمات فقط برای پروفایل خودم -->
+      <div id="profile-self-settings" class="profile-settings hidden">
+        <div class="settings-row">
+          <span>تم تیره</span>
+          <label class="switch">
+            <input type="checkbox" id="profile-theme-switch" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <button id="profile-logout-btn" class="logout-text-btn">خروج از حساب</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مودال ساخت گروه/کانال -->
+  <div id="group-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2 id="group-modal-title">ساخت گروه جدید</h2>
+      <input type="text" id="group-name" placeholder="نام" />
+      <input type="text" id="group-handle" placeholder="آیدی یونیک (مثلا mygroup)" />
+      <input type="text" id="group-desc" placeholder="توضیحات (اختیاری)" />
+      <input type="text" id="group-members" placeholder="آیدی اعضا با کاما جدا کنید (مثلا: ali, sara)" />
+      <div id="group-modal-error" class="auth-error"></div>
+      <div class="modal-actions">
+        <button id="group-cancel" class="btn-secondary">انصراف</button>
+        <button id="group-create" class="btn-primary">ساخت</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مودال افزودن عضو -->
+  <div id="members-modal" class="modal hidden">
+    <div class="modal-card">
+      <h2>افزودن عضو</h2>
+      <input type="text" id="members-input" placeholder="آیدی اعضا با کاما جدا کنید (مثلا: ali, sara)" />
+      <div id="members-modal-error" class="auth-error"></div>
+      <div class="modal-actions">
+        <button id="members-cancel" class="btn-secondary">انصراف</button>
+        <button id="members-add" class="btn-primary">افزودن</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
